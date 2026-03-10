@@ -18,7 +18,10 @@ public class Main {
         printTotalCarsLoaded();
         printFirst2000Cars();
         printFirst10CarsAfterSorting();
+        printaverageMileage();
+        printcountsByFuelType();
         searchBrand();
+
     }
 
     //Step 2 - Load CSV
@@ -89,8 +92,48 @@ public class Main {
         System.out.println(loadCars.get(i));
     }
 }
+//printing average mileage from working list
+    public static void printaverageMileage() {
+        double totalMileage = 0.0;
+        for (Car car : loadCars) {
+            totalMileage += car.getMileage_kmpl();
+        }
+        double averageMileage = totalMileage / loadCars.size();
+        System.out.println("Average Mileage (kmpl): " + averageMileage);
+    }
+    //count by fuel type from working list
+    public static void printcountsByFuelType() {
+        int petrolCount = 0;
+        int dieselCount = 0;
+        int electricCount = 0;
+        int hybridCount = 0;
 
-    //ze menu
+        for (Car car : loadCars) {
+            String fuelType = car.getFuel_Type().toLowerCase();
+            switch (fuelType) {
+                case "petrol":
+                    petrolCount++;
+                    break;
+                case "diesel":
+                    dieselCount++;
+                    break;
+                case "electric":
+                    electricCount++;
+                    break;
+                case "hybrid":
+                    hybridCount++;
+                    break;
+            }
+        }
+
+        System.out.println("Fuel Type Counts:");
+        System.out.println("Petrol: " + petrolCount);
+        System.out.println("Diesel: " + dieselCount);
+        System.out.println("Electric: " + electricCount);
+        System.out.println("Hybrid: " + hybridCount);
+    }
+
+    //ze menu where oyu ask for brand
     static void searchBrand(){
         try(Scanner scnr = new Scanner(System.in)){
             while(true){
