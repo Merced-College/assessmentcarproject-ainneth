@@ -16,6 +16,9 @@ public class Main {
         readCarDataFromCSV("Car_Data.csv");
         insertionSortByBrand();
         printTotalCarsLoaded();
+        printFirst2000Cars();
+        printFirst10CarsAfterSorting();
+        searchBrand();
     }
 
     //Step 2 - Load CSV
@@ -24,9 +27,10 @@ public class Main {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             int lineNum = 0; 
+            int carCount = 0; // Counter for cars loaded
             // To keep track of line numbers for error reporting
             
-            while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null && carCount < 2000) {
                 lineNum++;
 
                 if(lineNum <= 1) {
@@ -44,7 +48,7 @@ public class Main {
                     double mileage_kmpl = Double.parseDouble(data[6]);
 
                     loadCars.add(new Car(car_ID, brand, model, year, fuel_Type, color, mileage_kmpl));
-                    lineNum++;
+                    carCount++;
                 }
             }
         } catch (IOException e) {
@@ -55,10 +59,15 @@ public class Main {
     //print total cars loaded
     public static void printTotalCarsLoaded() {
         System.out.println("Total cars loaded: " + loadCars.size());
-
     }
 
-    // Insertion sort by car brand
+    // Print first 2000 car
+    public static void printFirst2000Cars() {
+        int count = Math.min(2000, loadCars.size());
+        for (int i = 0; i < count; i++) {
+            System.out.println(loadCars.get(i));
+        }
+    }
     public static void insertionSortByBrand() {
         for (int i = 1; i < loadCars.size(); i++) {
             Car variable = loadCars.get(i);
@@ -73,7 +82,13 @@ public class Main {
             loadCars.set(j + 1, variable);
         }
     }
-
+    //first 10 cars after sorting
+    public static void printFirst10CarsAfterSorting() {
+    System.out.println( "Top 10 cars after sorting:");
+    for(int i = 0; i < 10 && i < loadCars.size(); i++) {
+        System.out.println(loadCars.get(i));
+    }
+}
 
     //ze menu
     static void searchBrand(){
