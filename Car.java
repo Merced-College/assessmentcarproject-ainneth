@@ -4,8 +4,6 @@
  * Program: Assessment: Car Data Analyzer
  */
 
-import java.util.ArrayList;
-
 public class Car {
 
     private String Car_ID;
